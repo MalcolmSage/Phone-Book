@@ -9,16 +9,14 @@ class BaseModel(Model):
         database = db
 
 # Person Model
-class Person(BaseModel):
+class People(BaseModel):
     first_name = CharField()
-    last_name = CharField()
     number = CharField()
 
+# db.drop_tables([People])
+db.create_tables([People], safe=True)
 
-# db.drop_tables([Person])
-db.create_tables([Person], safe=True)
-
-# Person(first_name='Malcolm', last_name='Sage', number='555-777-3333').save()
+# People(first_name='Malcolm', number='555-777-3333').save()
 
 def prompts():
     print("Please read the following text, as the options have been changed")
@@ -32,10 +30,22 @@ def prompts():
         selection = int(input("Please choose again: "))
     if selection == 1:
         print("All Contacts")
+        people = People.select()
+        for person in people:
+            print(f'{person.first_name}, {person.number}')
+
     elif selection == 2:
         print("Contact search")
+        print("Who are you looking for?")
+        search = input("First Name: "))
+
+
+
     elif selection == 3:
         print("New friend")
+
+
+
     else:
         print("Goodbye")
 prompts()

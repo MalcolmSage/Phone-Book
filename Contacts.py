@@ -33,11 +33,26 @@ def prompts():
         people = People.select()
         for person in people:
             print(f'{person.first_name}, {person.number}')
+        prompts()
 
     elif selection == 2:
         print("Contact search")
         print("Who are you looking for?")
-        search = input("First Name: "))
+        search = input("First Name: ")
+        continued = 1
+        while People.select().where(People.first_name != search) and continued == 1: 
+            continued = int(input("No {search} found. Would you like to search again? 1 = Yes or 2 = No: "))
+            if continued == 2:
+                prompts()
+            elif continued == 1:
+                search = input("First Name: ")
+        if People.select().where(People.first_name == search):
+            found = People.select().where(People.first_name == search)
+            for person in found:
+                print(f'{person.first_name}, {person.number}')
+                prompts()
+            
+        # selected = People.select().where(People.first_name == search)
 
 
 
